@@ -2,7 +2,7 @@
 
 # Algorithms
 
-## Jonson Plassman
+## Jones Plassman
 The Jones-Plassmann algorithm then proceeds very much like the MIS algorithm, except
 that it does not find a maximal independent set at each step. It just finds an
 independent set in parallel using Luby's method of choosing vertices whose weights are local
