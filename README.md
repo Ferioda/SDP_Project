@@ -29,7 +29,7 @@ that there is a better chance of using only a small number of colors.
 The Smallest-Degree-Last algorithm [24] tries to improve upon the Largest-Degree-First
 algorithm by using a more sophisticated system of weights. In order to achieve this the
 algorithm operates in two phases, a weighting phase and a coloring phase.
-The weighting phase begins by nding all vertices with degree equal to the smallest
+The weighting phase begins by finding all vertices with degree equal to the smallest
 degree d presently in the graph. These are assigned the current weight and removed from
 the graph, thus changing the degree of their neighbors. The algorithm repeatedly removes
 vertices of degree d, assigning successively larger weights at each iteration. When there are
@@ -37,7 +37,7 @@ no vertices of degree d left, the algorithm looks for vertices of degree d+1. Th
 until all vertices have been assigned a weight.
 Once the weights have been assigned, coloring proceeds as in the Jones-Plassmann
 and Largest-Degree-First algorithms. This coloring procedure works using the weights
-assigned by the rst stage in the same way that the Largest-Degree-First algorithm uses
+assigned by the first stage in the same way that the Largest-Degree-First algorithm uses
 the degree of the vertices. In other words the coloring phase has each vertex look around
 at its uncolored neighbors and when it discovers it has the highest weight (conflicts once
 again being resolved by a random number), it colors itself using the lowest available color
