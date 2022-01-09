@@ -43,8 +43,8 @@ int main(int argc, char** argv)
 
 	
 	cout << "Coloring of graph 1 \n";
-	//jonesPlassman(g1);
-	largestDegreeFirst(g1);
+	//jonesPlassman(g1, 4);
+	largestDegreeFirst(g1,4);
 
 
 	
