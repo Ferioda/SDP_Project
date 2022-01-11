@@ -29,5 +29,8 @@
     <ClInclude Include="span-lite.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="ReadInput.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

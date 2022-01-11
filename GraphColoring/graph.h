@@ -61,6 +61,8 @@ public:
 		colored=move(other.colored);
 	
 	}
+	
+	
 
 	~Graph() {
 		adj.clear();
