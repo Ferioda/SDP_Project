@@ -8,24 +8,25 @@ vector<int> temp;
 
 clock_t jonesPlassman(Graph& G, int num_threads) {
 	// compute time 
-	const clock_t begin_time = clock();
+	
 
 	set<int> U;
-
+	
 	//initialization
+	
 	srand(static_cast <unsigned int> (time(0)));
 	for (int i = 0; i < G.V; i++) {
 		int compGuess = rand() % 100 + 1;
-		G.weights.push_back(compGuess);
-		G.colored.push_back(-1);
+		G.weights[i]=compGuess;
+		G.colored[i] = -1;
 	}
-
+	
 	//U subset of V, intially U = V
 	for (int i = 0; i < G.V; i++)
 		U.insert(i);
 
 
-
+	const clock_t begin_time = clock();
 	while (U.size() > 0) {
 		RangeSplitter rs(U.size(), num_threads);
 		// run num_threads threads to color the subset of vertices 

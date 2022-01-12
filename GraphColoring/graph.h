@@ -25,6 +25,8 @@ public:
 	int V;
 	Graph(int V) { 
 		this->V = V; 
+		colored=vector<int>(V);
+		weights=vector<int>(V);
 		for (int i=0;i<V;i++){
 			vector<int> v;
 			adj.push_back(v); 
@@ -90,13 +92,14 @@ void Graph::saveAsCSV(int n_thread, clock_t  time, string algorithm,string filep
 	file.open(filepath, std::ios::out | std::ios::app);
 	if (file.fail())
 		return;
-
-	//make sure write fails with exception if something is wrong
-	file.exceptions(file.exceptions() | std::ios::failbit | std::ifstream::badbit);
-	
-	for (int i = 0; i < V; i++) 
-		//Algorithm n_thread n_v n_colors time
-		file<< "%s ,%d ,%d ,%d ,%d \n" <<algorithm, n_thread, V, (* max_element(colored.begin(), colored.end())+1),time;
+	try{
+		//make sure write fails with exception if something is wrong
+		file.exceptions(file.exceptions() | std::ios::failbit | std::ifstream::badbit);
+		int max=(*max_element(colored.begin(), (colored.end())));
+		file << algorithm << "," << n_thread << "," << V << "," << max + 1 << "," << time << endl;
+	} catch( const exception &e) {
+		cout << "Error while printing output";
+	}
 	
 	
 }

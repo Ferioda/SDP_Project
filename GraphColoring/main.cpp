@@ -4,6 +4,7 @@
 #include "jonesPlassman.h"
 #include "largestDegreeFirst.h"
 #include "greedy.h"
+#include <ctime>
 
 #define MAX 1000
 using namespace std;
@@ -11,7 +12,7 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	vector <string> allGraphs = readPath("benchmark");
+	vector <string> allGraphs = readPath("benchmark/manual");
 	
 	string types[4] = {"jones_plassman", "largest_degree_first", "smallest_degree_last","greedy"};
 	string filepath = "./graph_coloring.csv";

@@ -45,15 +45,10 @@ clock_t greedyColoring(Graph& G){
       if (result[*i] != -1)
         available[result[*i]] = false;
   }
-
+  G.colored = move(result);
 
  const clock_t end_time = clock();
  
-
-  // print the result
-  for (int u = 0; u < G.V; u++)
-    cout << "Vertex " << u << " ---> Color "
-    << result[u] << endl;
 
  return end_time - begin_time;
 

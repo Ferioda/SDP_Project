@@ -1,8 +1,8 @@
 #pragma once
 
 #include "graph.h"
-#include <filesystem>
 #include <random>
+#include <filesystem>
 
 namespace fs = std::filesystem;
 Graph readFile(string str);
@@ -24,16 +24,16 @@ vector<string> readPath(string path) {
 	return allGraphs;
 }
 Graph readFile(string str) {
-	fstream fin(str);
-	char line[MAX];
-	fin.getline(line, MAX);
+	ifstream fin;
+	fin.open(str);
+	string line;
+	getline(fin,line);
 	int n=stoi(line);
 	
 	Graph g1(n);
 	for (int i = 0; i < n; i++) {
-		fin.getline(line, MAX);
-		string s = line;
-		istringstream iss(s);
+		getline(fin,line);
+		istringstream iss(line);
 		string word;
 		while (iss >> word) {
 			int j;

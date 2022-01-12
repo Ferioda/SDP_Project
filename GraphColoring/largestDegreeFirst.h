@@ -19,8 +19,8 @@ clock_t largestDegreeFirst(Graph& G, int num_threads) {
 	srand(static_cast <unsigned int> (time(0)));
 	for (int i = 0; i < G.V; i++) {
 		int compGuess = rand() % 100 + 1;
-		G.weights.push_back(compGuess);
-		G.colored.push_back(-1);
+		G.weights[i]= compGuess;
+		G.colored[i] = -1;
 	}
 
 	//U subset of V, intially U = V

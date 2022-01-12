@@ -42,7 +42,6 @@ void weighting_phase(Graph& G, int num_threads) {
 	int k = 1;
 	int d = 1;
 	vector<int> degrees(G.V);
-	G.weights = vector<int>(G.V);
 	for (int i = 0; i < G.V; i++) {
 		U.insert(i);
 		degrees[i] = G.adj[i].size();
@@ -110,7 +109,7 @@ void coloring_phase(Graph& G, int num_threads) {
 	for (int i = 0; i < G.V; i++) {
 		int compGuess = rand() % 100 + 1;
 		rand_weights.push_back(compGuess);
-		G.colored.push_back(-1);
+		G.colored[i]=-1;
 		U.insert(i);
 	}
 
