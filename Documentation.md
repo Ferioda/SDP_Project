@@ -44,8 +44,5 @@ The sequential algorithm and the three parallel algorithms have been implemented
  - Time elapsed
  - Number of colors used.
 
-Thus, an efficient algorithm with high performance should achieve low time elapsed (high speed), low memory consumption, and few colors, which means the algorithm should use the least number of colors to color the whole graph.
+Thus, an efficient algorithm with high performance should achieve low time elapsed (high speed) and few colors, which means the algorithm should use the least number of colors to color the whole graph.
 
-We used an Intel Core i5-4300M 2.60GHz processor for benchmarking the graphs. Our report is available in `data-analysis/Data analysis.ipynb` (can be viewed in a browser at https://github.com/CapacitorSet/graph-coloring/blob/master/data-analysis/Data%20analysis.ipynb), as well as the raw data. These were our final findings:
-
->The choice of algorithm results in vastly different performances. Early multithread algorithms found in literature may perform significantly worse than simpler single-thread ones, and thus be only of theoretical interest; more recent ones typically provide a measurable speedup. Simple heuristics like FVF and SDL can outperform such algorithms, as they rarely miscolor the graph and such errors can be corrected quickly.
