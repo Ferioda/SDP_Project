@@ -7,19 +7,17 @@
 namespace fs = std::filesystem;
 Graph readFile(string str);
 
-vector<Graph> readPath(string path) {
-	vector<Graph> allGraphs;
-	fs::current_path(path);
+vector<string> readPath(string path) {
+	
+	//fs::current_path(path);
+	vector<string> allGraphs;
 
 	for (const auto& entry : fs::recursive_directory_iterator(path)) {
 		if (fs::is_regular_file(entry)) {
 			std::filesystem::path p = fs::absolute(entry.path());
 			string a = p.string();
 			std::replace(a.begin(), a.end(), '\\', '/'); 
-		
-			Graph g = readFile(a);
-			allGraphs.push_back(move(g));
-
+			allGraphs.push_back(a);
 		}
 	}
 

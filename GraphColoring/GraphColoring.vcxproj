@@ -144,8 +144,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graph.h" />
+    <ClInclude Include="jonesPlassman.h" />
+    <ClInclude Include="largestDegreeFirst.h" />
     <ClInclude Include="RangeSplitter.h" />
     <ClInclude Include="ReadInput.h" />
+    <ClInclude Include="smallestDegreeLast.h" />
     <ClInclude Include="span-lite.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
