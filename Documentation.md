@@ -13,11 +13,6 @@ In order to solve the problem of graph coloring in an efficient way, the paralle
 
 Therefore, in this project, we implement a group of well-known graph-coloring algorithms to analyse and compare them with each other, to know the performance of each one compared to the other.
 
-# Overview
-
-The project is organized into parsers (`parse/`), solvers (`solve/`), parallelization utilities (`utils/`), and benchmarking utilities (`benchmark/`). Finally, `graph/` contains the data structure and some utility functions for storing graphs as an adjacency list.
-
-
 ## Solvers
 
 ### Greedy
