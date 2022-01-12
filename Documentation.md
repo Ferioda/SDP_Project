@@ -13,7 +13,7 @@ In order to solve the problem of graph coloring in an efficient way, the paralle
 
 Therefore, in this project, we implement a group of well-known graph-coloring algorithms to analyse and compare them with each other, to know the performance of each one compared to the other.
 
-## Solvers
+# Solvers
 
 ### Greedy
 
@@ -36,8 +36,6 @@ Although Jones' paper describes the algorithm in terms of message sending betwee
 ## Benchmarking
 
 For benchmarking purposes we save the results of the solvers in a csv file called `xxx`. In this file, for each graph, we write computation time and number of colors used.
-
-The Benchmark class is instantiated with a vector of solvers which implement the common interface `Solver`. For each run, the following parameters are measured:
 
 # Results
 
