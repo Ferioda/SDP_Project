@@ -12,7 +12,7 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	vector <string> allGraphs = readPath("benchmark/manual");
+	vector <string> allGraphs = readPath("benchmark/sigmod08");
 	
 	string types[4] = {"jones_plassman", "largest_degree_first", "smallest_degree_last","greedy"};
 	string filepath = "./graph_coloring.csv";
@@ -25,7 +25,7 @@ int main(int argc, char** argv)
 		clock_t time_greedy = greedyColoring(graph);
 		graph.saveAsCSV(0, (float) time_greedy/CLOCKS_PER_SEC, types[3], filepath);
 
-		for (int n_thread = 2; n_thread < 5; n_thread++) {
+		for (int n_thread = 5; n_thread < 8; n_thread++) {
 			clock_t time_jp= jonesPlassman(graph, 2);
 			graph.saveAsCSV(n_thread,(float) time_jp/CLOCKS_PER_SEC,types[0], filepath);
 

@@ -85,24 +85,38 @@ public:
 	void saveAsCSV(int n_thread, float time, string algorithm,string filepath);
 
 	bool isWellColored();
+	int color_of(int v);
+
+	int color_vertex(int v);
+
+	vector<int> neighbors(int v);
 };
 
-bool Graph::isWellColored() {
-	/*
-	// For all vertices...
-    for (size_t idx = 0; idx < neighbor_indices.size(); idx++) {
-        color_t from_color = color_of(idx);
-        // For all edges...
-        for (const uint32_t &to_idx : neighbors_of(idx)) {
-            color_t to_color = color_of(to_idx);
-            // Check that the color matches
-            if (from_color == to_color)
-                return false;
-        }
-    }
-	*/
-    return true;
+vector<int> Graph::neighbors(int v) {
 	
+    return adj[v];
+	
+}
+
+int Graph::color_of(int v) {
+	return colored[v];
+}
+
+int Graph::color_vertex(int v) {
+    std::set<int> neighbor_colors;
+    for (const auto &neighbor : neighbors(v))
+        neighbor_colors.emplace(color_of(neighbor));
+
+    // Find smallest color not in the set of neighbor colors
+    int smallest_color = 0;
+    for (int neighbor_color : neighbor_colors)
+        if (smallest_color != neighbor_color)
+            break;
+        else
+            smallest_color++;
+    colored[v] = smallest_color;
+
+    return smallest_color;
 }
 
 void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath) {
