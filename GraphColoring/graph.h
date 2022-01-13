@@ -87,7 +87,7 @@ public:
 	bool isWellColored();
 };
 
-bool isWellColored() {
+bool Graph::isWellColored() {
 	/*
 	// For all vertices...
     for (size_t idx = 0; idx < neighbor_indices.size(); idx++) {
