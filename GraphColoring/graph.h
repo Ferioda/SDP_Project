@@ -82,11 +82,11 @@ public:
 
 	int weight(int v);
 	
-	void saveAsCSV(int n_thread, clock_t  time, string algorithm,string filepath);
+	void saveAsCSV(int n_thread, float time, string algorithm,string filepath);
 };
 
 
-void Graph::saveAsCSV(int n_thread, clock_t  time, string algorithm,string filepath) {
+void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath) {
 	std::ofstream file;
 	string line;
 	file.open(filepath, std::ios::out | std::ios::app);
