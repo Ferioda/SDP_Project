@@ -83,8 +83,27 @@ public:
 	int weight(int v);
 	
 	void saveAsCSV(int n_thread, float time, string algorithm,string filepath);
+
+	bool isWellColored();
 };
 
+bool isWellColored() {
+	/*
+	// For all vertices...
+    for (size_t idx = 0; idx < neighbor_indices.size(); idx++) {
+        color_t from_color = color_of(idx);
+        // For all edges...
+        for (const uint32_t &to_idx : neighbors_of(idx)) {
+            color_t to_color = color_of(to_idx);
+            // Check that the color matches
+            if (from_color == to_color)
+                return false;
+        }
+    }
+	*/
+    return true;
+	
+}
 
 void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath) {
 	std::ofstream file;
