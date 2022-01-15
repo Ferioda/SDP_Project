@@ -65,14 +65,12 @@ We also report the results obtained with the `large` folder running the two best
 # Memory usage
 
 The sequential algorithm and the three parallel algorithms have been tested in terms of memory usage. 
-
-
 								
 ## Average memory usage per folder ( total memory usage / n_graphs )
 | Graph             | Greedy | JP (1 thread) | JP (2 thread) | JP (4 thread) | LDF (1 thread) | LDF (2 thread) | LDF (4 thread) | SDL (1 thread) | SDL(2 thread) | SDL (4 thread) |
 | :---------------- | :----: | :-----------: | :-----------: | :-----------: | :------------- | :------------: | :------------: | :------------: | :-----------: | :------------: |
-| **sigmod08**          |    8,822MB   |   8,893MB           | 8,994MB   |      9,070MB         |     8,895MB	           |     8,996MB          |    9,07MB           |  8,945MB              |       8,989MB        |         9,059MB       |
-| **small-sparse-real** |     9,169MB   |     9,259MB          |    9,341MB           |    9,426MB           |              8,459MB  |             9,341MB   |          9,426MB      |           9,296MB     |    9,336MB           |      9,415MB          |
+| **sigmod08**          |    8,822 MB   |   8,893 MB           | 8,994 MB   |      9,070 MB         |     8,895 MB	           |     8,996 MB          |    9,07 MB           |  8,945 MB              |       8,989 MB        |         9,059 MB       |
+| **small-sparse-real** |     9,169 MB   |     9,259 MB          |    9,341 MB           |    9,426 MB           |              8,459 MB  |             9,341 MB   |          9,426 MB      |           9,296 MB     |    9,336 MB           |      9,415 MB          |
 | **large** |     1681 MB   |   1707 MB     |      1693 MB      |     1691 MB       |     1688 MB |  1694 MB   |     1692 MB       |    -    |    -      |    -     |
 
 
