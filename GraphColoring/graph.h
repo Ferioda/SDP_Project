@@ -84,7 +84,7 @@ public:
 
 	int weight(int v);
 	
-	void saveAsCSV(int n_thread, float time, string algorithm,string filepath, bool correct);
+	void saveAsCSV(int n_thread, float time, string algorithm,string filepath, double mem_usage, bool correct);
 
 	int color_of(int v);
 
@@ -143,7 +143,7 @@ int Graph::color_vertex(int v) {
     return smallest_color;
 }
 
-void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath, bool correct) {
+void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath, double mem_usage, bool correct) {
 	std::ofstream file;
 	string line;
 	file.open(filepath, std::ios::out | std::ios::app);
@@ -153,7 +153,8 @@ void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath
 		//make sure write fails with exception if something is wrong
 		file.exceptions(file.exceptions() | std::ios::failbit | std::ifstream::badbit);
 		int max=(*max_element(colored.begin(), (colored.end())));
-		file << algorithm << "," << n_thread << "," << V << "," << max + 1 << "," << time << "," << correct << endl;
+		string result = correct ? "success" : "fail";
+		file << algorithm << "," << n_thread << "," << V << "," << max + 1 << "," << time << "," << mem_usage << "," << result << endl;
 	} catch( const exception &e) {
 		cout << "Error while printing output";
 	}
