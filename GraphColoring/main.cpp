@@ -19,7 +19,12 @@ void run_single(int t, const string types[N_ALG], Graph& graph, int n_thread);
 
 int main(int argc, char** argv)
 {
-	vector <string> allGraphs = readPath("benchmark");
+	if (argc != 2) {
+		cout << "Wrong parameters on command line." << endl << "Correct usage <filename> <benchmark_directory_path>" << endl;
+		return 1;
+	}
+
+	vector <string> allGraphs = readPath(argv[1]);
 	
 	for (auto& g : allGraphs) {
 		
