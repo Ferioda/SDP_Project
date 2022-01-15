@@ -13,6 +13,8 @@
 #define MAX 1000
 using namespace std;
 
+mutex m;
+mutex c;
 
 class Graph
 {
@@ -82,20 +84,36 @@ public:
 
 	int weight(int v);
 	
-	void saveAsCSV(int n_thread, float time, string algorithm,string filepath);
+	void saveAsCSV(int n_thread, float time, string algorithm,string filepath, bool correct);
 
-	bool isWellColored();
 	int color_of(int v);
 
 	int color_vertex(int v);
+
+	bool isWellColored();
 
 	vector<int> neighbors(int v);
 };
 
 vector<int> Graph::neighbors(int v) {
-	
     return adj[v];
-	
+}
+
+bool Graph::isWellColored()  {
+    // For all vertices...
+    for (int i = 0; i < V; i++) {
+        int fromColor = color_of(i);
+		if(fromColor == -1)
+			return false;
+        // For all edges...
+        for (int j : neighbors(i)) {
+            int toColor = color_of(j);
+            // Check that the color matches
+            if (fromColor == toColor)
+                return false;
+        }
+    }
+    return true;
 }
 
 int Graph::color_of(int v) {
@@ -109,17 +127,21 @@ int Graph::color_vertex(int v) {
 
     // Find smallest color not in the set of neighbor colors
     int smallest_color = 0;
-    for (int neighbor_color : neighbor_colors)
-        if (smallest_color != neighbor_color)
-            break;
-        else
-            smallest_color++;
+	for (int neighbor_color : neighbor_colors) {
+		if (neighbor_color == -1)
+			continue;
+		if (smallest_color != neighbor_color)
+			break;
+		else
+			smallest_color++;
+	}
+
     colored[v] = smallest_color;
 
     return smallest_color;
 }
 
-void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath) {
+void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath, bool correct) {
 	std::ofstream file;
 	string line;
 	file.open(filepath, std::ios::out | std::ios::app);
@@ -129,7 +151,7 @@ void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath
 		//make sure write fails with exception if something is wrong
 		file.exceptions(file.exceptions() | std::ios::failbit | std::ifstream::badbit);
 		int max=(*max_element(colored.begin(), (colored.end())));
-		file << algorithm << "," << n_thread << "," << V << "," << max + 1 << "," << time << endl;
+		file << algorithm << "," << n_thread << "," << V << "," << max + 1 << "," << time << "," << correct << endl;
 	} catch( const exception &e) {
 		cout << "Error while printing output";
 	}

@@ -1,9 +1,9 @@
 #pragma once
 #include "graph.h"
 #include <ctime>
+
 //Jones Plassman Algorithm implementation 
 
-vector<int> temp;
 void thread_color(int thread_idx, vector<int>& wrong, Graph& G, int from, int to);
 
 clock_t jonesPlassman(Graph& G, int num_threads) {
@@ -37,9 +37,7 @@ clock_t jonesPlassman(Graph& G, int num_threads) {
 	const clock_t end_time = clock();
 	return end_time - begin_time;
 }
-//mutexes used in thread_color
-mutex m;
-mutex c;
+
 
 void thread_color(int thread_idx, vector<int> &wrong, Graph& G, int from, int to) {
 
