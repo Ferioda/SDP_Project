@@ -18,6 +18,8 @@ At the line `standard of C++ language` select the `/std:c++latest` option from t
 the only parameter to provide to the algorithm is the path to the benchmark directory
 
 
-## Note
+## Notes and critics to the project
 The program does not handle graphs stored in DIMACS10 format.
 Only DIMACS graph are allowed.
+
+Do not run Smallest Degree Last with large graphs, we leave it commented because our implementation is too slow.

@@ -49,50 +49,6 @@ clock_t largestDegreeFirst(Graph& G, int num_threads) {
 
 }
 
-/*
-void search_ldf(int thread_idx, Graph* G, set<int>* U, int from, int to) {
-
-
-	for (int k = from; k < to; k++) {
-		int v = *next(U->begin(), k);
-		int w = G->weight(v);
-		int d = G->degree_of(v);
-		bool max = true;
-
-		for (int j = 0; j < G->adj[v].size() && max == true; j++) {
-			int neighbor = G->adj[v][j];
-
-			if (U->find(neighbor) != U->end()) {
-				// Look at neighboors to know if there is an adjacient vertex with higher degree
-				// If there is a conflict, choose the vertex with the highest weight 
-				if (G->degree_of(neighbor) > d || (G->degree_of(neighbor) == d && G->weight(neighbor) > w))
-					max = false;
-			}
-
-		}
-
-		if (max) {
-
-			// Assign to the max weighted vertices the lowest possible color 
-			set <int> S;
-			for (int j = 0; j < G->adj[v].size(); j++) {
-				if (G->colored[G->adj[v][j]] != -1)
-					S.insert(G->colored[G->adj[v][j]]);
-			}
-			for (int j = 0; j < S.size() + 1; j++) {
-				if (S.find(j) == S.end()) {
-					unique_lock<mutex> lock{ c };
-					G->colored[v] = j;
-					break;
-				}
-			}
-			unique_lock<mutex> lock{ m };
-			v_t.push_back(v);
-		}
-	}
-}
-*/
-
 
 void thread_color_ldf(int thread_idx, vector<int>& wrong, Graph& G, int from, int to) {
 

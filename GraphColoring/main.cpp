@@ -41,7 +41,7 @@ int main(int argc, char** argv)
 		for (int n_thread = 1; n_thread < 5; n_thread++) {
 			run_single(1, types, graph, n_thread);		// JP
 			run_single(2, types, graph, n_thread);		// LDF
-			run_single(3, types, graph, n_thread);		// SDL
+			//run_single(3, types, graph, n_thread);		// SDL
 		}
 	}
 

@@ -20,45 +20,52 @@ Therefore, in this project, we implement a group of well-known graph-coloring al
 [Greedy](./GraphColoring/greedy.h) implements the simple, well-known greedy strategy described in the provided documentation. 
 It is single-threaded, i.e. sequential algorithm which choses every iteration the local best solution.
 
-## Jones Plassman
+## Jones Plassmann
 
-[jonesPlassman](./GraphColoring/jonesPlassman.h) implements the algorithm as described in *A Comparison of Parallel Graph Coloring Algorithms* of J. R. Allwright. 
+[jonesPlassmann](./GraphColoring/jonesPlassman.h) implements the algorithm as described in *A Comparison of Parallel Graph Coloring Algorithms* of J. R. Allwright. 
 At its core, Jones' algorithm defines a total ordering on the vertices, based on the highest random weight assigned to each vertex in the graph initialization, and then colors each node for which all uncolored neighbors have a lower weight.
 
 *Implementation:* the random `weights` are generated once by a single thread. Each thread is then responsible for coloring the corresponding subset of vertices in the graph. A thread tries to color each vertex of its own partion, then check if the vertex color is unique among its neighbors and, if not, the vertex is added in a list of wrong colored vertices. The assumption is that there is a little number of conflicts of this type. After all vertices have been colored, the sequential coloring of wrong colored vertices is run. A drowback of this implementation is that not much parallelism is exploited.
 
 ## Largest Degree First (LDF)
 
-[LDF](./GraphColoring/largestDegreeFirst.h) implements the algorithm described in J. R. Allwright, 1995. The algorithm uses the degree of vertices in the subsets of the graph to decide which vertex to be colored before the other(Largest degree is colored firstly).LDF exploits a different creterion of comparison between the vertices than Jones-Plassman algorithm. Random weights are still used for defining the priority in case of two vertices with the saem degree. The approach in LDF is to use the least number of colors. 
+[LDF](./GraphColoring/largestDegreeFirst.h) implements the algorithm described in J. R. Allwright, 1995. The algorithm uses the degree of vertices in the subsets of the graph to decide which vertex to be colored before the other(Largest degree is colored firstly).LDF exploits a different creterion of comparison between the vertices than Jones-Plassmann algorithm. Random weights are still used for defining the priority in case of two vertices with the saem degree. The approach in LDF is to use the least number of colors. 
 
-*Implementation:* the implementation is the same of Jones-Plassman, but in this case the comparison between the verteces is applied on the degrees, instead of the random weights.
+*Implementation:* the implementation is the same of Jones-Plassmann, but in this case the comparison between the verteces is applied on the degrees, instead of the random weights.
 
 ## Smallest Degree Last (SDL)
 
 [SDL](./GraphColoring/smallestDegreeLast.h) implements the algorithm from *A Comparison of Parallel Graph Coloring Algorithms*, J. R. Allwright, 1995.This algorithm uses degrees also like LDF. However, unlike LDF it uses also weights to decide which vertex to be colored first. The algorithm goes into two phases. The first phase is the weighting phase in which all vertices in the graph that have a degree equal to the smallest degree takes a weight equal the current weight (initially 0), then the graph is updated considering to the subgraph induced by the set of remaining vertices. This process is repeated many times until all vertices are assigned a weight. The second phase comes to color this groups starting from the largest weight to the smallest weight with the same strategy of the Jones-Plassmann algorithm.
 
-*Implementation:* the weighting phase is run in parallel, each thread weights the assigned subset of vertices in the graph using an ausiliar vector of degrees to keep track of the graph induced by the subset of remaining vertices. The coloring phase is run in parallel as in the Jones-Plassman implementation.  
+*Implementation:* the weighting phase is run in parallel, each thread weights the assigned subset of vertices in the graph using an ausiliar vector of degrees to keep track of the graph induced by the subset of remaining vertices. The coloring phase is run in parallel as in the Jones-Plassmann implementation.  
 
 # Benchmarking
 
-For benchmarking purposes we save the results of the program in a csv file called [graph_coloring](./GraphColoring/graph_coloring.csv). In this file, for each directory of [benchmark](./GraphColoring/benchmark), we write:
+For benchmarking purposes we save the results of the program in a csv file called [graph_coloring](./GraphColoring/graph_coloring.csv). In this file, for each directory of `benchmark`, we write:
 - algorithm name
 - number of threads
 - number of vertices
 - number of colors used
-- computation time (in seconds)
+- execution time (in seconds)
 - memory usage (in MB)
 - success / unsuccess
 
 We analysed the behavior of the parallel algorithms in case of 1,2 and 4 threads.
 
-We choose two sub-directories ([sigmod08](./GraphColoring/benchmark/sigmod08) and [small-sparse-real](./GraphColoring/benchmark/small_sparse_real)) for creating graphs of our algorithms' implementation based on computation time at increasing number of vertices:
+We choose two sub-directories (`sigmod08` and `small-sparse-real`) for creating graphs of our algorithms' implementation based on computation time at increasing number of vertices:
    ![](photo/sigmod08.png)
    ![](photo/small-sparse-real.png)
+
+
+We also report the results obtained with the `large` folder running the two best-performing algorithms: `Jones-Plassmann` and `Largest-Degree-First` with different number of threads:
+
+
+![](photo/large.png)
 
 # Memory usage
 
 The sequential algorithm and the three parallel algorithms have been tested in terms of memory usage. 
+
 
 								
 ## Average memory usage per folder ( total memory usage / n_graphs )
@@ -66,11 +73,14 @@ The sequential algorithm and the three parallel algorithms have been tested in t
 | :---------------- | :----: | :-----------: | :-----------: | :-----------: | :------------- | :------------: | :------------: | :------------: | :-----------: | :------------: |
 | **sigmod08**          |    8,822MB   |   8,893MB           | 8,994MB   |      9,070MB         |     8,895MB	           |     8,996MB          |    9,07MB           |  8,945MB              |       8,989MB        |         9,059MB       |
 | **small-sparse-real** |     9,169MB   |     9,259MB          |    9,341MB           |    9,426MB           |              8,459MB  |             9,341MB   |          9,426MB      |           9,296MB     |    9,336MB           |      9,415MB          |
+| **large** |     1681 MB   |   1707 MB     |      1693 MB      |     1691 MB       |     1688 MB |  1694 MB   |     1692 MB       |    -    |    -      |    -     |
 
+
+# Times 
       
 # Conclusions
-The multithread algorithms for graph coloring provided results comparable to the sequential greedy one on the considered graphs. The Smallest Degree Last algorithm provided the worst performances, maybe due to a bad implementation. However more recent and powerful algorithms could provide a true speedup on the performances in terms of elapsed time. The memory usage seems to be approximately the same for all the algorithms.
-
+The multithread algorithms for graph coloring provided results comparable to the sequential greedy one on the considered graphs. The Smallest Degree Last algorithm provided the worst performances, maybe due to a bad implementation. However more recent and powerful algorithms could provide a true speedup on the performances in terms of elapsed time. The memory usage seems to be approximately the same for all the algorithms and grows significantly as the number of vertyices increases.
+Different execution times strongly depend on the number of edges on the graphs and on their topologies as it's shown in the graphs, even with a greater number of vertices, the execution time can be lower if the nodes have few edges.
 
 
 
