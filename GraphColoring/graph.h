@@ -93,6 +93,8 @@ public:
 	bool isWellColored();
 
 	vector<int> neighbors(int v);
+	
+	void write_graph_header(string path, string file_path);
 };
 
 vector<int> Graph::neighbors(int v) {
@@ -157,6 +159,26 @@ void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath
 	}
 	
 	
+}
+void Graph::write_graph_header(string path, string file_path) {
+	std::ofstream file;
+	int index = path.find("benchmark");
+	path = path.substr(index, path.size());
+	string line;
+	file.open(file_path, std::ios::out | std::ios::app);
+	if (file.fail())
+		return;
+	try {
+		//make sure write fails with exception if something is wrong
+		file.exceptions(file.exceptions() | std::ios::failbit | std::ifstream::badbit);
+	
+		file << endl << path << endl;
+	}
+	catch (const exception& e) {
+		cout << "Error while printing output";
+	}
+
+
 }
 vector <int> Graph:: colors() {
 	return colored;
