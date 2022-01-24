@@ -119,6 +119,7 @@ bool Graph::isWellColored()  {
 }
 
 int Graph::color_of(int v) {
+	unique_lock<mutex> lock {m};
 	return colored[v];
 }
 
@@ -137,7 +138,7 @@ int Graph::color_vertex(int v) {
 		else
 			smallest_color++;
 	}
-
+	unique_lock<mutex> lock {m};
     colored[v] = smallest_color;
 
     return smallest_color;
