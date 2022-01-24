@@ -73,11 +73,9 @@ The sequential algorithm and the three parallel algorithms have been tested in t
 | **small-sparse-real** |     9,169 MB   |     9,259 MB          |    9,341 MB           |    9,426 MB           |              8,459 MB  |             9,341 MB   |          9,426 MB      |           9,296 MB     |    9,336 MB           |      9,415 MB          |
 | **large** |     1681 MB   |   1707 MB     |      1693 MB      |     1691 MB       |     1688 MB |  1694 MB   |     1692 MB       |    -    |    -      |    -     |
 
-
-# Times 
       
 # Conclusions
-The multithread algorithms for graph coloring provided results comparable to the sequential greedy one on the considered graphs. The Smallest Degree Last algorithm provided the worst performances, maybe due to a bad implementation. However more recent and powerful algorithms could provide a true speedup on the performances in terms of elapsed time. The memory usage seems to be approximately the same for all the algorithms and grows significantly as the number of vertyices increases.
+The multithread algorithms for graph coloring provided results comparable to the sequential greedy one on the considered graphs. The Smallest Degree Last algorithm provided the worst performances, maybe due to a bad implementation. However more recent and powerful algorithms could provide a true speedup on the performances in terms of elapsed time. The memory usage seems to be approximately the same for all the algorithms and grows significantly as the number of vertices increases.
 Different execution times strongly depend on the number of edges on the graphs and on their topologies as it's shown in the graphs, even with a greater number of vertices, the execution time can be lower if the nodes have few edges.
 
 
