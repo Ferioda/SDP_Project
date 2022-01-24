@@ -1,10 +1,12 @@
 #pragma once
 #include "graph.h"
 #include <ctime>
+#include <mutex>
 
-
+mutex d;
 void thread_weight_sdl(Graph & G,int idx, int from,int to,vector<int> & degrees);
 void thread_color_sdl(int thread_idx, vector<int>& wrong, Graph& G, int from, int to);
+
 
 clock_t smallest_degree_last(Graph& G, int num_threads) {
 	const clock_t begin_time = clock();
@@ -62,17 +64,21 @@ void thread_weight_sdl(Graph& G, int idx, int from, int to, vector<int>& degrees
 	//when k reaches the max, it means that every vertex is assigned a weight
 	while (k <= max) {
 		for (int v = from; v < to; v++) {
+			unique_lock<mutex> lock{ d };
 			if (degrees[v] <= k && degrees[v] >= 0) {
-				//assign the weight ant then 
+				//assign the weight ant then 				
 				G.weights[v] = i;
 				degrees[v] = -1;
+				lock.unlock();
 				//reduce the degrees of the neighbors of 1
 				for (int n : G.neighbors(v)) {
+					lock.lock();
 					if (degrees[n] > 0) {
 						degrees[n]--;
 					}
+					lock.unlock();
 				}
-			}
+			} 
 		}
 		k++;
 		i++;
