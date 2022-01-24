@@ -28,6 +28,10 @@ Graph readFile(string str) {
 	fin.open(str);
 	string line;
 	getline(fin,line);
+	while(!(std::all_of(line.begin(), line.end(), ::isdigit))) {
+		getline(fin, line);
+	}
+	
 	int n=stoi(line);
 	
 	Graph g1(n);

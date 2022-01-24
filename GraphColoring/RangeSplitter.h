@@ -1,4 +1,4 @@
-#include "span-lite.hpp"
+//#include "span-lite.hpp"
 #include <cmath>
 #include <vector>
 
@@ -25,18 +25,3 @@ public:
     };
 };
 
-template <typename T>
-class VectorSplitter {
-    RangeSplitter rs;
-    std::vector<T>& vec;
-
-public:
-    VectorSplitter(std::vector<T>& vec, int num_ranges) : rs(vec.size(), num_ranges), vec(vec) {};
-
-    // Get the i-th range
-    nonstd::span<T> get(int index) {
-        if (rs.is_empty(index))
-            return nonstd::span<T>();
-        return nonstd::span<T>(vec.begin() + rs.get_min(index), vec.begin() + rs.get_max(index));
-    };
-};

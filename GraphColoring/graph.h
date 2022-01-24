@@ -13,6 +13,8 @@
 #define MAX 1000
 using namespace std;
 
+mutex m;
+mutex c;
 
 class Graph
 {
@@ -82,11 +84,66 @@ public:
 
 	int weight(int v);
 	
-	void saveAsCSV(int n_thread, float time, string algorithm,string filepath);
+	void saveAsCSV(int n_thread, float time, string algorithm,string filepath, double mem_usage, bool correct);
+
+	int color_of(int v);
+
+	int color_vertex(int v);
+
+	bool isWellColored();
+
+	vector<int> neighbors(int v);
+	
+	void write_graph_header(string path, string file_path);
 };
 
+vector<int> Graph::neighbors(int v) {
+    return adj[v];
+}
 
-void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath) {
+bool Graph::isWellColored()  {
+    // For all vertices...
+    for (int i = 0; i < V; i++) {
+        int fromColor = color_of(i);
+		if(fromColor == -1)
+			return false;
+        // For all edges...
+        for (int j : neighbors(i)) {
+            int toColor = color_of(j);
+            // Check that the color matches
+            if (fromColor == toColor)
+                return false;
+        }
+    }
+    return true;
+}
+
+int Graph::color_of(int v) {
+	return colored[v];
+}
+
+int Graph::color_vertex(int v) {
+    std::set<int> neighbor_colors;
+    for (const auto &neighbor : neighbors(v))
+        neighbor_colors.emplace(color_of(neighbor));
+
+    // Find smallest color not in the set of neighbor colors
+    int smallest_color = 0;
+	for (int neighbor_color : neighbor_colors) {
+		if (neighbor_color == -1)
+			continue;
+		if (smallest_color != neighbor_color)
+			break;
+		else
+			smallest_color++;
+	}
+
+    colored[v] = smallest_color;
+
+    return smallest_color;
+}
+
+void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath, double mem_usage, bool correct) {
 	std::ofstream file;
 	string line;
 	file.open(filepath, std::ios::out | std::ios::app);
@@ -96,12 +153,33 @@ void Graph::saveAsCSV(int n_thread, float time, string algorithm,string filepath
 		//make sure write fails with exception if something is wrong
 		file.exceptions(file.exceptions() | std::ios::failbit | std::ifstream::badbit);
 		int max=(*max_element(colored.begin(), (colored.end())));
-		file << algorithm << "," << n_thread << "," << V << "," << max + 1 << "," << time << endl;
+		string result = correct ? "success" : "fail";
+		file << algorithm << "," << n_thread << "," << V << "," << max + 1 << "," << time << "," << mem_usage << "," << result << endl;
 	} catch( const exception &e) {
 		cout << "Error while printing output";
 	}
 	
 	
+}
+void Graph::write_graph_header(string path, string file_path) {
+	std::ofstream file;
+	int index = path.find("benchmark");
+	path = path.substr(index, path.size());
+	string line;
+	file.open(file_path, std::ios::out | std::ios::app);
+	if (file.fail())
+		return;
+	try {
+		//make sure write fails with exception if something is wrong
+		file.exceptions(file.exceptions() | std::ios::failbit | std::ifstream::badbit);
+	
+		file << endl << path << endl;
+	}
+	catch (const exception& e) {
+		cout << "Error while printing output";
+	}
+
+
 }
 vector <int> Graph:: colors() {
 	return colored;
