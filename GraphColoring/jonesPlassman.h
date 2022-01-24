@@ -18,8 +18,8 @@ clock_t jonesPlassman(Graph& G, int num_threads) {
 	}
 	const clock_t begin_time = clock();
 	RangeSplitter rs(G.V, num_threads);
-	// run num_threads threads to color the subset of vertices 
 
+	// run num_threads threads to color the subset of vertices 
 	vector<thread> threads;
 	for (int idx = 0; idx < num_threads && idx < G.V; idx++) {
 		threads.emplace_back(thread([idx,&wrong, rs, &G] {

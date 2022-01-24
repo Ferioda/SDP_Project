@@ -3,7 +3,6 @@
 #include <ctime>
 
 // Largest-Degree-First Algorithm implementation 
-//void search_ldf(int thread_idx, Graph* G, set<int>* U, int from, int to);
 void thread_color_ldf(int thread_idx, vector<int>& wrong, Graph& G, int from, int to);
 vector<int> v_t;
 
